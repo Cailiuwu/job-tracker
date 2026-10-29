@@ -1,5 +1,5 @@
 // Lets the tracker open without internet. Bump VERSION after changing any file.
-const VERSION = "job-tracker-v1";
+const VERSION = "job-tracker-v2";
 const CORE = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 
 self.addEventListener("install", e => {

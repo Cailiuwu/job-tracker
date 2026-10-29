@@ -132,6 +132,10 @@ table.sum td.sal{color:var(--ink-strong);white-space:nowrap}
 .fld a{color:var(--ink-strong);font-size:.82rem;overflow-wrap:anywhere}
 .notebox{display:flex;flex-direction:column;gap:6px;background:var(--tile-2);padding:16px 18px;border-left:3px solid var(--btn-hover)}
 .notebox label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-strong);font-weight:500}
+.langsw{display:flex;border:1px solid var(--btn);flex:0 0 auto}
+.langsw button{font:inherit;font-size:.74rem;letter-spacing:.06em;background:transparent;color:var(--ink);border:0;padding:4px 10px;cursor:pointer}
+.langsw button[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink);font-weight:500}
+html[lang="zh-CN"] .eyebrow,html[lang="zh-CN"] .stat .k,html[lang="zh-CN"] .status,html[lang="zh-CN"] table.sum th{letter-spacing:.06em}
 .notebox textarea{font:inherit;font-weight:400;font-size:.9rem;line-height:1.75;color:var(--ink-strong);background:var(--bg);border:1px solid var(--line);padding:10px 12px;width:100%;resize:vertical}
 .adhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
 .adhead .btn{padding:6px 14px;font-size:.76rem}
@@ -158,7 +162,11 @@ table.sum td.sal{color:var(--ink-strong);white-space:nowrap}
 
 <header class="bar gutter">
   <div class="inner">
-    <h1 class="mark">applications</h1>
+    <h1 class="mark" data-t="brand">applications</h1>
+    <div class="langsw" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+    </div>
     <nav class="filters" id="filters" aria-label="Filter by status"></nav>
   </div>
 </header>
@@ -166,38 +174,38 @@ table.sum td.sal{color:var(--ink-strong);white-space:nowrap}
 <div class="hero">
   <div class="panel add gutter">
     <form class="pin" id="intake" autocomplete="off">
-      <span class="eyebrow">New application</span>
-      <h2>Add a job</h2>
+      <span class="eyebrow" data-t="newApp">New application</span>
+      <h2 data-t="addJob">Add a job</h2>
       <div class="two">
-        <div class="underline"><label for="f-role">Position</label><input id="f-role" required placeholder="Financial Accountant"></div>
-        <div class="underline"><label for="f-company">Company</label><input id="f-company" required placeholder="Company name"></div>
-        <div class="underline"><label for="f-salary">Salary range</label><input id="f-salary" placeholder="Leave blank if not advertised"></div>
-        <div class="underline"><label for="f-location">Location</label><input id="f-location" placeholder="Melbourne VIC · Hybrid"></div>
+        <div class="underline"><label for="f-role" data-t="position">Position</label><input id="f-role" required data-ph="phRole"></div>
+        <div class="underline"><label for="f-company" data-t="company">Company</label><input id="f-company" required data-ph="phCompany"></div>
+        <div class="underline"><label for="f-salary" data-t="salaryRange">Salary range</label><input id="f-salary" data-ph="phSalary"></div>
+        <div class="underline"><label for="f-location" data-t="location">Location</label><input id="f-location" data-ph="phLocation"></div>
       </div>
       <details class="more">
-        <summary>More details (link, work type, job ad)</summary>
+        <summary data-t="moreDetails">More details (link, work type, job ad)</summary>
         <div>
-          <div class="underline"><label for="f-url">Job link</label><input id="f-url" type="url" placeholder="https://…"></div>
-          <div class="underline"><label for="f-type">Work type</label><input id="f-type" placeholder="Full time, contract…"></div>
-          <div class="underline"><label for="f-ad">Job advertisement</label><textarea id="f-ad" placeholder="Paste the whole ad here to keep a copy"></textarea></div>
+          <div class="underline"><label for="f-url" data-t="jobLink">Job link</label><input id="f-url" type="url" placeholder="https://…"></div>
+          <div class="underline"><label for="f-type" data-t="workType">Work type</label><input id="f-type" data-ph="phWorkType"></div>
+          <div class="underline"><label for="f-ad" data-t="jobAdvert">Job advertisement</label><textarea id="f-ad" data-ph="phAd"></textarea></div>
         </div>
       </details>
       <div class="addrow">
-        <div class="underline"><label for="f-status">Status</label>
-          <select id="f-status"><option value="saved">Saved (not applied yet)</option><option value="applied" selected>Applied</option></select></div>
-        <div class="underline"><label for="f-applied">Applied on</label><input id="f-applied" type="date"></div>
-        <button class="btn" type="submit">add</button>
+        <div class="underline"><label for="f-status" data-t="status">Status</label>
+          <select id="f-status"><option value="saved" data-t="savedOption">Saved (not applied yet)</option><option value="applied" selected data-t="st_applied">Applied</option></select></div>
+        <div class="underline"><label for="f-applied" data-t="appliedOn">Applied on</label><input id="f-applied" type="date"></div>
+        <button class="btn" type="submit" data-t="add">add</button>
       </div>
     </form>
   </div>
   <div class="panel numbers gutter">
     <div class="pin">
-      <span class="eyebrow">Where things stand</span>
+      <span class="eyebrow" data-t="whereThings">Where things stand</span>
       <div class="stats" id="stats"></div>
-      <span class="small">Your applications are saved on this device only, and nobody else can see them. Make a backup now and then.</span>
+      <span class="small" data-t="savedLocal">Your applications are saved on this device only, and nobody else can see them. Make a backup now and then.</span>
       <div class="backup">
-        <button type="button" class="btn line" id="export">download backup</button>
-        <button type="button" class="btn line" id="import">restore from backup</button>
+        <button type="button" class="btn line" id="export" data-t="downloadBackup">download backup</button>
+        <button type="button" class="btn line" id="import" data-t="restoreBackup">restore from backup</button>
         <input type="file" id="importfile" accept=".json,application/json" hidden>
       </div>
     </div>
@@ -208,14 +216,14 @@ table.sum td.sal{color:var(--ink-strong);white-space:nowrap}
 
 <section class="block gutter">
   <div class="inner">
-    <div class="sectitle"><h2>Summary</h2><p>Every application at a glance. Click a column to sort, or a row to open the job.</p></div>
+    <div class="sectitle"><h2 data-t="summary">Summary</h2><p data-t="summarySub">Every application at a glance. Click a column to sort, or a row to open the job.</p></div>
     <div class="tablewrap" id="tablewrap"></div>
   </div>
 </section>
 
 <section class="block last gutter">
   <div class="inner">
-    <div class="sectitle"><h2 id="listtitle">All applications</h2><p>Newest first.</p></div>
+    <div class="sectitle"><h2 id="listtitle">All applications</h2><p data-t="newestFirst">Newest first.</p></div>
     <div class="grid" id="grid"></div>
   </div>
 </section>
@@ -223,10 +231,84 @@ table.sum td.sal{color:var(--ink-strong);white-space:nowrap}
 <div class="overlay" id="overlay" hidden></div>
 
 <script>
-const KEY = "jobTracker.v1";
-const STATUSES = [["saved","Saved"],["applied","Applied"],["replied","Replied"],["interview","Interview"],["offer","Offer"],["rejected","Rejected"],["withdrawn","Withdrawn"]];
-const LABEL = Object.fromEntries(STATUSES);
+const KEY = "jobTracker.v1", LANG_KEY = "jobTracker.lang";
+const STATUS_KEYS = ["saved","applied","replied","interview","offer","rejected","withdrawn"];
 const STAGE = {saved:0, applied:1, replied:2, interview:3, offer:4, rejected:5, withdrawn:6};
+
+const I18N = {
+  en: {
+    title:"Application Tracker", brand:"applications",
+    st_saved:"Saved", st_applied:"Applied", st_replied:"Replied", st_interview:"Interview", st_offer:"Offer", st_rejected:"Rejected", st_withdrawn:"Withdrawn",
+    f_all:"all", f_saved:"saved", f_applied:"applied", f_replied:"replied", f_interview:"interview", f_offer:"offer", f_rejected:"rejected", f_withdrawn:"withdrawn",
+    newApp:"New application", addJob:"Add a job", position:"Position", company:"Company", salaryRange:"Salary range", location:"Location",
+    phRole:"Financial Accountant", phCompany:"Company name", phSalary:"Leave blank if not advertised", phLocation:"Melbourne VIC · Hybrid",
+    moreDetails:"More details (link, work type, job ad)", jobLink:"Job link", workType:"Work type", phWorkType:"Full time, contract…",
+    jobAdvert:"Job advertisement", phAd:"Paste the whole ad here to keep a copy", status:"Status", savedOption:"Saved (not applied yet)",
+    appliedOn:"Applied on", add:"add", whereThings:"Where things stand",
+    savedLocal:"Your applications are saved on this device only, and nobody else can see them. Make a backup now and then.",
+    downloadBackup:"download backup", restoreBackup:"restore from backup",
+    summary:"Summary", summarySub:"Every application at a glance. Click a column to sort, or a row to open the job.", newestFirst:"Newest first.",
+    allApps:"All applications", statApplied:"Applied", statReplies:"Replies", statInterviews:"Interviews",
+    colPosition:"Position", colCompany:"Company", colSalary:"Salary", colLocation:"Location", colType:"Type", colStatus:"Status", colApplied:"Applied", colDays:"Days",
+    note:"note", notAdvertised:"Not advertised", salaryNotAdvertised:"Salary not advertised", notYet:"Not yet", followUp:"follow up", followUpQ:"follow up?",
+    markApplied:"mark as applied", view:"view", companyFallback:"Company", companyNotFound:"Company",
+    emptyTableAll:"Your applications will be listed here once you add one.", emptyTableFilter:"Nothing {s} yet.",
+    emptyGridTitle:"No applications yet", emptyGridSub:"Fill in Add a job above to start your list.",
+    emptyFilterTitle:"Nothing {s} yet", emptyFilterSub:"Choose another status at the top.",
+    tableFoot:"{n} jobs · {a} applied · {r} with a reply", tableFoot1:"1 job · {a} applied · {r} with a reply",
+    appliedDate:"Applied {d}", daysAgo:"{n} days ago", dayAgo:"1 day ago", notApplied:"Not applied yet",
+    sheetApplied:"applied {d}", sheetNotApplied:"not applied yet", close:"Close",
+    noteLabel:"Note", notePh:"Next steps, who to call, what to ask, interview times…", saveOnBlur:"Saves when you click away.",
+    jobAd:"Job ad", copyAd:"copy ad", copied:"copied ✓", selectedCopy:"selected · press Ctrl+C", adPh:"Paste the job ad here to keep a copy",
+    openAd:"Open the ad", history:"History", removeQ:"Remove this application?", remove:"remove", keepIt:"keep it", removeApp:"remove application",
+    added:"Added to your list.", markedApplied:"Marked as applied. Today is set as the applied date.", removed:"Application removed.",
+    cantSave:"This browser isn't letting the page save. Use download backup so you don't lose your list.",
+    cantSaveStart:"This browser isn't letting the page save. Open it in Safari, Chrome or Edge, or use download backup often.",
+    backupShared:"Backup ready. Save it to Files, iCloud Drive or email it to yourself.", backupDownloaded:"Backup downloaded. Keep the file somewhere safe.",
+    restored:"Restored {n} applications from the backup.", restored1:"Restored 1 application from the backup.",
+    badBackup:"That file isn't a tracker backup. Choose the .json file you downloaded.", backupTitle:"Job tracker backup"
+  },
+  zh: {
+    title:"求职记录", brand:"求职记录",
+    st_saved:"已收藏", st_applied:"已投递", st_replied:"已回复", st_interview:"面试", st_offer:"Offer", st_rejected:"未通过", st_withdrawn:"已放弃",
+    f_all:"全部", f_saved:"已收藏", f_applied:"已投递", f_replied:"已回复", f_interview:"面试", f_offer:"Offer", f_rejected:"未通过", f_withdrawn:"已放弃",
+    newApp:"新增岗位", addJob:"添加岗位", position:"职位", company:"公司", salaryRange:"薪资范围", location:"地点",
+    phRole:"例如：Financial Accountant", phCompany:"公司名称", phSalary:"广告没写可以留空", phLocation:"例如：Melbourne VIC · Hybrid",
+    moreDetails:"更多信息（链接、工作类型、招聘广告）", jobLink:"岗位链接", workType:"工作类型", phWorkType:"全职、合同工……",
+    jobAdvert:"招聘广告", phAd:"把整段招聘广告粘贴到这里保存", status:"状态", savedOption:"已收藏（还没投）",
+    appliedOn:"投递日期", add:"添加", whereThings:"当前进度",
+    savedLocal:"记录只保存在这台设备上，别人看不到。记得定期备份。",
+    downloadBackup:"下载备份", restoreBackup:"从备份恢复",
+    summary:"总览", summarySub:"所有岗位一目了然。点表头可以排序，点某一行打开详情。", newestFirst:"最新添加的在前。",
+    allApps:"全部岗位", statApplied:"已投递", statReplies:"收到回复", statInterviews:"面试",
+    colPosition:"职位", colCompany:"公司", colSalary:"薪资", colLocation:"地点", colType:"类型", colStatus:"状态", colApplied:"投递日期", colDays:"天数",
+    note:"备注", notAdvertised:"未公布", salaryNotAdvertised:"薪资未公布", notYet:"未投递", followUp:"该跟进了", followUpQ:"该跟进了？",
+    markApplied:"标记为已投递", view:"查看", companyFallback:"公司", companyNotFound:"公司",
+    emptyTableAll:"添加岗位后会显示在这里。", emptyTableFilter:"还没有「{s}」的岗位。",
+    emptyGridTitle:"还没有岗位", emptyGridSub:"在上方「添加岗位」填写信息，开始记录。",
+    emptyFilterTitle:"还没有「{s}」的岗位", emptyFilterSub:"在顶部选择其他状态看看。",
+    tableFoot:"共 {n} 个岗位 · 已投递 {a} 个 · 收到回复 {r} 个", tableFoot1:"共 1 个岗位 · 已投递 {a} 个 · 收到回复 {r} 个",
+    appliedDate:"{d} 投递", daysAgo:"{n} 天前", dayAgo:"1 天前", notApplied:"还没投递",
+    sheetApplied:"{d} 投递", sheetNotApplied:"还没投递", close:"关闭",
+    noteLabel:"备注", notePh:"下一步、要联系谁、要问什么、面试时间……", saveOnBlur:"点到别处会自动保存。",
+    jobAd:"招聘广告", copyAd:"复制广告", copied:"已复制 ✓", selectedCopy:"已选中，请手动复制", adPh:"把招聘广告粘贴到这里保存",
+    openAd:"打开广告", history:"状态记录", removeQ:"确定删除这个岗位吗？", remove:"删除", keepIt:"保留", removeApp:"删除这个岗位",
+    added:"已添加。", markedApplied:"已标记为已投递，投递日期设为今天。", removed:"已删除。",
+    cantSave:"这个浏览器不允许页面保存数据。请点「下载备份」，以免记录丢失。",
+    cantSaveStart:"这个浏览器不允许页面保存数据。请用 Safari、Chrome 或 Edge 打开，或者经常下载备份。",
+    backupShared:"备份已准备好，可以存到「文件」、iCloud Drive，或用邮件发给自己。", backupDownloaded:"备份已下载，请把文件存好。",
+    restored:"已从备份恢复 {n} 个岗位。", restored1:"已从备份恢复 1 个岗位。",
+    badBackup:"这个文件不是求职记录的备份，请选择之前下载的 .json 文件。", backupTitle:"求职记录备份"
+  }
+};
+function pickLang(){
+  try{ const v = localStorage.getItem(LANG_KEY); if(v==="en"||v==="zh") return v; }catch{}
+  return /^zh/i.test(navigator.language||"") ? "zh" : "en";
+}
+let lang = pickLang();
+function t(k, vars){ let s = (I18N[lang][k] ?? I18N.en[k] ?? k); if(vars) for(const v in vars) s = s.replaceAll("{"+v+"}", vars[v]); return s; }
+const stLabel = s => t("st_"+s);
+
 let apps = [], filter = "all", openId = null, confirmId = null, sortKey = "appliedAt", sortDir = -1, storageOk = true;
 
 const $ = s => document.querySelector(s);
@@ -234,13 +316,25 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt
 const today = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().slice(0,10); };
 const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
 
+function applyStaticText(){
+  document.documentElement.lang = lang==="zh" ? "zh-CN" : "en";
+  document.title = t("title");
+  document.querySelectorAll("[data-t]").forEach(el => { el.textContent = t(el.dataset.t); });
+  document.querySelectorAll("[data-ph]").forEach(el => { el.placeholder = t(el.dataset.ph); });
+  document.querySelectorAll("[data-lang]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang===lang)));
+}
+function setLang(l){
+  lang = l; try{ localStorage.setItem(LANG_KEY, l); }catch{}
+  applyStaticText(); render();
+}
+
 function load(){
   try{ const raw = localStorage.getItem(KEY); apps = raw ? JSON.parse(raw) : []; if(!Array.isArray(apps)) apps = []; }
   catch{ apps = []; storageOk = false; }
 }
 function save(){
   try{ localStorage.setItem(KEY, JSON.stringify(apps)); storageOk = true; }
-  catch{ storageOk = false; showNotice("This browser isn't letting the page save. Use download backup so you don't lose your list."); }
+  catch{ storageOk = false; showNotice(t("cantSave")); }
 }
 function showNotice(msg){ const n = $("#notice"); n.textContent = msg; n.hidden = !msg; if(msg) setTimeout(() => { if(n.textContent===msg) n.hidden = true; }, 6000); }
 function sourceOf(url){
@@ -251,26 +345,31 @@ function sourceOf(url){
     return h;
   }catch{ return ""; }
 }
-function fmtDate(d){ if(!d) return ""; const x = new Date(d.length===10 ? d+"T00:00:00" : d); return isNaN(x) ? d : x.toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"}); }
+function fmtDate(d){
+  if(!d) return ""; const x = new Date(d.length===10 ? d+"T00:00:00" : d); if(isNaN(x)) return d;
+  return lang==="zh" ? x.toLocaleDateString("zh-CN",{year:"numeric",month:"long",day:"numeric"}) : x.toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"});
+}
 function daysSince(d){ if(!d) return null; const x = new Date(d.length===10 ? d+"T00:00:00" : d); return Math.max(0, Math.floor((Date.now()-x)/86400000)); }
-function status(s){ return `<span class="status" style="color:var(--s-${s})">${esc(LABEL[s]||s)}</span>`; }
+const ago = n => n===1 ? t("dayAgo") : t("daysAgo",{n});
+function status(s){ return `<span class="status" style="color:var(--s-${s})">${esc(stLabel(s))}</span>`; }
 function find(id){ return apps.find(a => a.id===id); }
 function update(id, patch){ const a = find(id); if(!a) return; Object.assign(a, patch, {updatedAt:new Date().toISOString()}); save(); }
 
 function renderFilters(){
-  const counts = Object.fromEntries(STATUSES.map(([k])=>[k,0]));
+  const counts = Object.fromEntries(STATUS_KEYS.map(k=>[k,0]));
   apps.forEach(a => { if(counts[a.status]!=null) counts[a.status]++; });
-  $("#filters").innerHTML = [["all","all",apps.length], ...STATUSES.map(([k,l])=>[k,l.toLowerCase(),counts[k]])]
-    .map(([k,l,n]) => `<button type="button" data-f="${k}" aria-pressed="${filter===k}">${esc(l)}<span class="n">${n}</span></button>`).join("");
+  $("#filters").innerHTML = [["all",apps.length], ...STATUS_KEYS.map(k=>[k,counts[k]])]
+    .map(([k,n]) => `<button type="button" data-f="${k}" aria-pressed="${filter===k}">${esc(t("f_"+k))}<span class="n">${n}</span></button>`).join("");
   const applied = apps.filter(a => a.status!=="saved").length;
   const replies = apps.filter(a => ["replied","interview","offer","rejected"].includes(a.status)).length;
   const interviews = apps.filter(a => a.status==="interview" || a.status==="offer").length;
-  $("#stats").innerHTML = [[applied,"Applied"],[replies,"Replies"],[interviews,"Interviews"]]
-    .map(([v,k]) => `<div class="stat"><span class="v">${v}</span><span class="k">${k}</span></div>`).join("");
-  $("#listtitle").textContent = filter==="all" ? "All applications" : LABEL[filter];
+  $("#stats").innerHTML = [[applied,t("statApplied")],[replies,t("statReplies")],[interviews,t("statInterviews")]]
+    .map(([v,k]) => `<div class="stat"><span class="v">${v}</span><span class="k">${esc(k)}</span></div>`).join("");
+  $("#listtitle").textContent = filter==="all" ? t("allApps") : stLabel(filter);
 }
 
-const COLS = [["role","Position"],["company","Company"],["salary","Salary"],["location","Location"],["workType","Type"],["status","Status"],["appliedAt","Applied"],["days","Days"]];
+const COLS = ["role","company","salary","location","workType","status","appliedAt","days"];
+const COL_LABEL = {role:"colPosition",company:"colCompany",salary:"colSalary",location:"colLocation",workType:"colType",status:"colStatus",appliedAt:"colApplied",days:"colDays"};
 function sortVal(a,k){
   if(k==="status") return STAGE[a.status] ?? 9;
   if(k==="days") return daysSince(a.appliedAt) ?? -1;
@@ -280,42 +379,43 @@ function visible(){ return apps.filter(a => filter==="all" || a.status===filter)
 function renderTable(){
   const el = $("#tablewrap");
   const list = visible().slice().sort((x,y) => { const a = sortVal(x,sortKey), b = sortVal(y,sortKey); return (a>b?1:a<b?-1:0)*sortDir; });
-  if(!list.length){ el.innerHTML = `<div class="empty"><span>${apps.length ? `Nothing ${esc(LABEL[filter].toLowerCase())} yet.` : "Your applications will be listed here once you add one."}</span></div>`; return; }
-  const head = COLS.map(([k,l]) => `<th scope="col"${sortKey===k?` aria-sort="${sortDir>0?"ascending":"descending"}"`:""}><button type="button" data-sort="${k}">${l}${sortKey===k?(sortDir>0?" ↑":" ↓"):""}</button></th>`).join("");
+  if(!list.length){ el.innerHTML = `<div class="empty"><span>${esc(apps.length ? t("emptyTableFilter",{s:stLabel(filter)}) : t("emptyTableAll"))}</span></div>`; return; }
+  const head = COLS.map(k => `<th scope="col"${sortKey===k?` aria-sort="${sortDir>0?"ascending":"descending"}"`:""}><button type="button" data-sort="${k}">${esc(t(COL_LABEL[k]))}${sortKey===k?(sortDir>0?" ↑":" ↓"):""}</button></th>`).join("");
+  const muted = k => `<span class="muted">${esc(t(k))}</span>`;
   const rows = list.map(a => {
     const d = daysSince(a.appliedAt), stale = a.status==="applied" && d!=null && d>=10;
     return `<tr data-open="${esc(a.id)}" tabindex="0">
-      <td class="pos">${esc(a.role)||'<span class="muted">—</span>'}${a.notes&&a.notes.trim()?'<span class="notemark">note</span>':""}</td>
+      <td class="pos">${esc(a.role)||'<span class="muted">—</span>'}${a.notes&&a.notes.trim()?`<span class="notemark">${esc(t("note"))}</span>`:""}</td>
       <td class="co">${esc(a.company)||'<span class="muted">—</span>'}</td>
-      <td class="sal">${a.salary?esc(a.salary):'<span class="muted">Not advertised</span>'}</td>
+      <td class="sal">${a.salary?esc(a.salary):muted("notAdvertised")}</td>
       <td>${esc(a.location)||'<span class="muted">—</span>'}</td>
       <td class="num">${esc(a.workType)||'<span class="muted">—</span>'}</td>
-      <td>${status(a.status)}${a.status==="saved"?`<br><button type="button" class="textbtn" data-applied="${esc(a.id)}">mark as applied</button>`:""}</td>
-      <td class="num">${a.appliedAt?esc(fmtDate(a.appliedAt)):'<span class="muted">Not yet</span>'}</td>
-      <td class="num"${stale?' style="color:var(--s-interview)"':""}>${d==null?"":d}${stale?" · follow up":""}</td>
+      <td>${status(a.status)}${a.status==="saved"?`<br><button type="button" class="textbtn" data-applied="${esc(a.id)}">${esc(t("markApplied"))}</button>`:""}</td>
+      <td class="num">${a.appliedAt?esc(fmtDate(a.appliedAt)):muted("notYet")}</td>
+      <td class="num"${stale?' style="color:var(--s-interview)"':""}>${d==null?"":d}${stale?` · ${esc(t("followUp"))}`:""}</td>
     </tr>`;
   }).join("");
   const applied = list.filter(a=>a.status!=="saved").length, replied = list.filter(a=>["replied","interview","offer","rejected"].includes(a.status)).length;
-  el.innerHTML = `<table class="sum"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table>
-    <p class="small">${list.length} job${list.length===1?"":"s"} · ${applied} applied · ${replied} with a reply${applied?` (${Math.round(replied/applied*100)}%)`:""}</p>`;
+  const foot = (list.length===1 ? t("tableFoot1",{a:applied,r:replied}) : t("tableFoot",{n:list.length,a:applied,r:replied})) + (applied?` (${Math.round(replied/applied*100)}%)`:"");
+  el.innerHTML = `<table class="sum"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table><p class="small">${esc(foot)}</p>`;
 }
 
 function renderGrid(){
   const el = $("#grid");
-  if(!apps.length){ el.innerHTML = `<div class="empty"><strong>No applications yet</strong><span>Fill in Add a job above to start your list.</span></div>`; return; }
+  if(!apps.length){ el.innerHTML = `<div class="empty"><strong>${esc(t("emptyGridTitle"))}</strong><span>${esc(t("emptyGridSub"))}</span></div>`; return; }
   const list = visible();
-  if(!list.length){ el.innerHTML = `<div class="empty"><strong>Nothing ${esc(LABEL[filter].toLowerCase())} yet</strong><span>Choose another status at the top.</span></div>`; return; }
+  if(!list.length){ el.innerHTML = `<div class="empty"><strong>${esc(t("emptyFilterTitle",{s:stLabel(filter)}))}</strong><span>${esc(t("emptyFilterSub"))}</span></div>`; return; }
   el.innerHTML = list.map(a => {
     const d = daysSince(a.appliedAt), stale = a.status==="applied" && d!=null && d>=10;
     return `<div class="card">
-      <button type="button" class="tile" data-open="${esc(a.id)}"><span class="src">${esc(a.source||"")}</span><span class="co">${esc(a.company||"Company")}</span>${status(a.status)}</button>
+      <button type="button" class="tile" data-open="${esc(a.id)}"><span class="src">${esc(a.source||"")}</span><span class="co">${esc(a.company||t("companyFallback"))}</span>${status(a.status)}</button>
       <div class="cap">
         <span class="role">${esc(a.role||"")}</span>
-        ${a.salary?`<span class="sal">${esc(a.salary)}</span>`:`<span class="sal none">Salary not advertised</span>`}
+        ${a.salary?`<span class="sal">${esc(a.salary)}</span>`:`<span class="sal none">${esc(t("salaryNotAdvertised"))}</span>`}
         ${a.location||a.workType?`<span class="where">${esc([a.location,a.workType].filter(Boolean).join(" · "))}</span>`:""}
-        <span class="ago${stale?" stale":""}">${a.appliedAt?`Applied ${esc(fmtDate(a.appliedAt))}${d!=null?` · ${d} day${d===1?"":"s"} ago`:""}${stale?" · follow up?":""}`:"Not applied yet"}</span>
+        <span class="ago${stale?" stale":""}">${a.appliedAt?esc(t("appliedDate",{d:fmtDate(a.appliedAt)}) + (d!=null?` · ${ago(d)}`:"") + (stale?` · ${t("followUpQ")}`:"")):esc(t("notApplied"))}</span>
       </div>
-      <div class="cardbtns"><button type="button" class="btn" data-open="${esc(a.id)}">view</button>${a.status==="saved"?`<button type="button" class="btn applied" data-applied="${esc(a.id)}">mark as applied</button>`:""}</div>
+      <div class="cardbtns"><button type="button" class="btn" data-open="${esc(a.id)}">${esc(t("view"))}</button>${a.status==="saved"?`<button type="button" class="btn applied" data-applied="${esc(a.id)}">${esc(t("markApplied"))}</button>`:""}</div>
     </div>`;
   }).join("");
 }
@@ -324,38 +424,38 @@ function renderSheet(){
   const ov = $("#overlay"), a = find(openId);
   if(!a){ ov.hidden = true; ov.innerHTML = ""; document.body.style.overflow = ""; return; }
   const id = esc(a.id), hist = (a.history||[]).slice().reverse();
-  const f = (key,label,ph,type) => `<div class="fld"><label for="${key}-${id}">${label}</label><input id="${key}-${id}" ${type?`type="${type}"`:""} data-field="${key}" value="${esc(a[key]||"")}" placeholder="${ph||""}"></div>`;
+  const f = (key,label,ph,type) => `<div class="fld"><label for="${key}-${id}">${esc(t(label))}</label><input id="${key}-${id}" ${type?`type="${type}"`:""} data-field="${key}" value="${esc(a[key]||"")}" placeholder="${esc(ph?t(ph):"")}"></div>`;
   ov.innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
     <div class="head">
-      <button type="button" class="close" data-close="1" aria-label="Close">×</button>
-      <span class="eyebrow">${esc(a.source||"")}${a.source?" · ":""}${a.appliedAt?`applied ${esc(fmtDate(a.appliedAt))}`:"not applied yet"}</span>
-      <span class="co" id="sheet-title">${esc(a.company||"Company")}</span>
+      <button type="button" class="close" data-close="1" aria-label="${esc(t("close"))}">×</button>
+      <span class="eyebrow">${esc(a.source||"")}${a.source?" · ":""}${esc(a.appliedAt?t("sheetApplied",{d:fmtDate(a.appliedAt)}):t("sheetNotApplied"))}</span>
+      <span class="co" id="sheet-title">${esc(a.company||t("companyNotFound"))}</span>
       <span class="role">${esc(a.role||"")}</span>
-      <div class="facts">${a.salary?`<span class="sal">${esc(a.salary)}</span>`:"<span>Salary not advertised</span>"}${a.location?`<span>${esc(a.location)}</span>`:""}${a.workType?`<span>${esc(a.workType)}</span>`:""}</div>
-      ${a.status==="saved"?`<div><button type="button" class="btn applied" data-applied="${id}">mark as applied</button></div>`:""}
+      <div class="facts">${a.salary?`<span class="sal">${esc(a.salary)}</span>`:`<span>${esc(t("salaryNotAdvertised"))}</span>`}${a.location?`<span>${esc(a.location)}</span>`:""}${a.workType?`<span>${esc(a.workType)}</span>`:""}</div>
+      ${a.status==="saved"?`<div><button type="button" class="btn applied" data-applied="${id}">${esc(t("markApplied"))}</button></div>`:""}
     </div>
     <div class="body">
-      <div class="full notebox"><label for="nt-${id}">Note</label>
-        <textarea id="nt-${id}" rows="${Math.min(14, Math.max(4, String(a.notes||"").split("\n").length + 1))}" data-field="notes" placeholder="Next steps, who to call, what to ask, interview times…">${esc(a.notes||"")}</textarea>
-        <span class="small">Saves when you click away.</span></div>
-      <div class="fld"><label for="st-${id}">Status</label>
-        <select id="st-${id}" data-status="1">${STATUSES.map(([k,l])=>`<option value="${k}"${a.status===k?" selected":""}>${l}</option>`).join("")}</select></div>
-      ${f("appliedAt","Applied on","","date")}
-      ${f("role","Position")}
-      ${f("company","Company")}
-      ${f("salary","Salary range","Not advertised")}
-      ${f("location","Location")}
-      ${f("workType","Work type","Full time, contract…")}
-      ${f("url","Job link","https://…","url")}
-      <div class="full fld"><div class="adhead"><label for="ad-${id}">Job ad</label>${a.adText?`<button type="button" class="btn line" data-copyad="1">copy ad</button>`:""}</div>
-        <textarea id="ad-${id}" rows="${a.adText?10:3}" data-field="adText" placeholder="Paste the job ad here to keep a copy">${esc(a.adText||"")}</textarea></div>
-      ${a.url?`<div class="full fld"><span class="lab">Open the ad</span><a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.url)}</a></div>`:""}
-      <div class="full fld"><span class="lab">History</span>
-        <ul class="hist">${hist.map(h=>`<li><time>${esc(fmtDate(h.at))}</time><span>${esc(LABEL[h.status]||h.status)}</span></li>`).join("")}</ul></div>
+      <div class="full notebox"><label for="nt-${id}">${esc(t("noteLabel"))}</label>
+        <textarea id="nt-${id}" rows="${Math.min(14, Math.max(4, String(a.notes||"").split("\n").length + 1))}" data-field="notes" placeholder="${esc(t("notePh"))}">${esc(a.notes||"")}</textarea>
+        <span class="small">${esc(t("saveOnBlur"))}</span></div>
+      <div class="fld"><label for="st-${id}">${esc(t("status"))}</label>
+        <select id="st-${id}" data-status="1">${STATUS_KEYS.map(k=>`<option value="${k}"${a.status===k?" selected":""}>${esc(stLabel(k))}</option>`).join("")}</select></div>
+      ${f("appliedAt","appliedOn","","date")}
+      ${f("role","position")}
+      ${f("company","company")}
+      ${f("salary","salaryRange","notAdvertised")}
+      ${f("location","location")}
+      ${f("workType","workType","phWorkType")}
+      ${f("url","jobLink","","url")}
+      <div class="full fld"><div class="adhead"><label for="ad-${id}">${esc(t("jobAd"))}</label>${a.adText?`<button type="button" class="btn line" data-copyad="1">${esc(t("copyAd"))}</button>`:""}</div>
+        <textarea id="ad-${id}" rows="${a.adText?10:3}" data-field="adText" placeholder="${esc(t("adPh"))}">${esc(a.adText||"")}</textarea></div>
+      ${a.url?`<div class="full fld"><span class="lab">${esc(t("openAd"))}</span><a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.url)}</a></div>`:""}
+      <div class="full fld"><span class="lab">${esc(t("history"))}</span>
+        <ul class="hist">${hist.map(h=>`<li><time>${esc(fmtDate(h.at))}</time><span>${esc(STAGE[h.status]!=null?stLabel(h.status):h.status)}</span></li>`).join("")}</ul></div>
       <div class="full acts">
         ${confirmId===a.id
-          ? `<span>Remove this application?</span><button type="button" class="btn warn" data-del="1">remove</button><button type="button" class="textbtn" data-cancel="1">keep it</button>`
-          : `<span class="spacer"></span><button type="button" class="textbtn" data-ask="1">remove application</button>`}
+          ? `<span>${esc(t("removeQ"))}</span><button type="button" class="btn warn" data-del="1">${esc(t("remove"))}</button><button type="button" class="textbtn" data-cancel="1">${esc(t("keepIt"))}</button>`
+          : `<span class="spacer"></span><button type="button" class="textbtn" data-ask="1">${esc(t("removeApp"))}</button>`}
       </div>
     </div>
   </div>`;
@@ -372,6 +472,7 @@ function setStatus(id, s){
 function openSheet(id){ openId = id; confirmId = null; renderSheet(); const c = document.querySelector("#overlay .close"); if(c) c.focus(); }
 function closeSheet(){ openId = null; confirmId = null; render(); }
 
+document.querySelectorAll("[data-lang]").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
 $("#f-applied").value = today();
 $("#f-status").addEventListener("change", () => { $("#f-applied").disabled = $("#f-status").value==="saved"; });
 $("#intake").addEventListener("submit", e => {
@@ -386,12 +487,12 @@ $("#intake").addEventListener("submit", e => {
   });
   save();
   $("#intake").reset(); $("#f-applied").value = today(); $("#f-applied").disabled = false; $("#f-status").value = "applied";
-  filter = "all"; render(); showNotice("Added to your list.");
+  filter = "all"; render(); showNotice(t("added"));
 });
 
 document.addEventListener("click", e => {
   const ap = e.target.closest("[data-applied]");
-  if(ap){ e.stopPropagation(); setStatus(ap.dataset.applied, "applied"); render(); showNotice("Marked as applied. Today is set as the applied date."); }
+  if(ap){ e.stopPropagation(); setStatus(ap.dataset.applied, "applied"); render(); showNotice(t("markedApplied")); }
 }, true);
 $("#filters").addEventListener("click", e => { const b = e.target.closest("[data-f]"); if(b){ filter = b.dataset.f; render(); } });
 $("#grid").addEventListener("click", e => { const o = e.target.closest("[data-open]"); if(o) openSheet(o.dataset.open); });
@@ -407,14 +508,14 @@ ov.addEventListener("click", async e => {
   if(e.target===ov || e.target.closest("[data-close]")){ closeSheet(); return; }
   if(e.target.closest("[data-ask]")){ confirmId = openId; renderSheet(); return; }
   if(e.target.closest("[data-cancel]")){ confirmId = null; renderSheet(); return; }
-  if(e.target.closest("[data-del]")){ apps = apps.filter(a => a.id!==openId); save(); closeSheet(); showNotice("Application removed."); return; }
+  if(e.target.closest("[data-del]")){ apps = apps.filter(a => a.id!==openId); save(); closeSheet(); showNotice(t("removed")); return; }
   const cp = e.target.closest("[data-copyad]");
   if(cp){
     const a = find(openId), ta = ov.querySelector('[data-field="adText"]');
     const text = `${a.role||""}${a.company?` — ${a.company}`:""}\n\n${ta ? ta.value : a.adText||""}`;
-    try{ await navigator.clipboard.writeText(text); cp.textContent = "copied ✓"; }
-    catch{ if(ta){ ta.focus(); ta.select(); } cp.textContent = "selected · press Ctrl+C"; }
-    setTimeout(() => { cp.textContent = "copy ad"; }, 2200);
+    try{ await navigator.clipboard.writeText(text); cp.textContent = t("copied"); }
+    catch{ if(ta){ ta.focus(); ta.select(); } cp.textContent = t("selectedCopy"); }
+    setTimeout(() => { cp.textContent = t("copyAd"); }, 2200);
   }
 });
 ov.addEventListener("change", e => {
@@ -437,8 +538,8 @@ $("#export").addEventListener("click", async () => {
   try{
     const file = new File([blob], name, {type:"application/json"});
     if(navigator.canShare && navigator.canShare({files:[file]}) && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)){
-      await navigator.share({files:[file], title:"Job tracker backup"});
-      showNotice("Backup ready. Save it to Files, iCloud Drive or email it to yourself.");
+      await navigator.share({files:[file], title:t("backupTitle")});
+      showNotice(t("backupShared"));
       return;
     }
   }catch(err){ if(err && err.name==="AbortError") return; }
@@ -446,7 +547,7 @@ $("#export").addEventListener("click", async () => {
   a.href = URL.createObjectURL(blob); a.download = name;
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-  showNotice("Backup downloaded. Keep the file somewhere safe.");
+  showNotice(t("backupDownloaded"));
 });
 $("#import").addEventListener("click", () => $("#importfile").click());
 $("#importfile").addEventListener("change", async e => {
@@ -458,14 +559,14 @@ $("#importfile").addEventListener("change", async e => {
     const have = new Set(apps.map(a => a.id)); let added = 0;
     list.forEach(a => { if(a && typeof a==="object" && a.id && !have.has(a.id)){ apps.push(a); added++; } });
     apps.sort((x,y) => String(y.createdAt||"").localeCompare(String(x.createdAt||"")));
-    save(); render(); showNotice(`Restored ${added} application${added===1?"":"s"} from the backup.`);
-  }catch{ showNotice("That file isn't a tracker backup. Choose the .json file you downloaded."); }
+    save(); render(); showNotice(added===1 ? t("restored1") : t("restored",{n:added}));
+  }catch{ showNotice(t("badBackup")); }
 });
 
-load(); render();
+load(); applyStaticText(); render();
 try{ if(navigator.storage && navigator.storage.persist) navigator.storage.persist(); }catch{}
 if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
-if(!storageOk) showNotice("This browser isn't letting the page save. Open the file in Chrome or Edge, or use download backup often.");
+if(!storageOk) showNotice(t("cantSaveStart"));
 </script>
 </body>
 </html>
